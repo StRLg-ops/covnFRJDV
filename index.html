@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strona z menu</title>
+    <title>Stránka Menu</title>
     <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
 
     <table align="center" border="0" cellpadding="5">
         <tr>
-            <td align="center" colspan="2"><h1>Kalkulator czasu</h1></td>
+            <td align="center" colspan="2"><h1>Kalkulačka času</h1></td>
         </tr>
         <tr>
             <td align="right"><label for="distance" class="boby">Vzdálenost (km):</label></td>
@@ -21,23 +21,23 @@
             <td><input type="text" id="speed" min="0" step="any" class="dodi"></td>
         </tr>
         <tr>
-            <td align="right"><label for="mapSpeed" class="boby">Prędkość karty:</label></td>
+            <td align="right"><label for="mapSpeed" class="boby">Rychlost mapy:</label></td>
             <td><input type="text" id="mapSpeed" min="1" step="any" value="1" class="dodi"></td>
         </tr>
         <tr>
-            <td align="right"><label for="faction" class="boby">Wybierz województwo</label></td>
+            <td align="right"><label for="faction" class="boby">Vyberte provincii</label></td>
             <td><select id="faction">
-                <option value="1">Własną Prowincja</option>
-                <option value="0.7">Przyjazna Prowincja</option>
-                <option value="0.35">Prowincja wroga</option>
+                <option value="1">Vlastní provincie</option>
+                <option value="0.7">Přátelská provincie</option>
+                <option value="0.35">Nepřátelská provincie</option>
             </select></td>
         </tr>
         <tr>
-            <td align="right"><label for="march" class="boby">Marsz włączony?</label></td>
+            <td align="right"><label for="march" class="boby">Pochod zapnutý?</label></td>
             <td><input type="checkbox" id="march"></td>
         </tr>
         <tr>
-            <td align="center" colspan="2"><input type="button" class="buttons" value="Pokaż wynik" onclick="calculateArrivalTime()"></td>
+            <td align="center" colspan="2"><input type="button" class="buttons" value="Zobrazit výsledek" onclick="calculateArrivalTime()"></td>
         </tr>
         <tr>
             <td align="center" colspan="2"><p id="arrivalTime" class="boby"></p></td>
@@ -69,32 +69,4 @@
     </script>
 
 </body>
-</html>    <p id="arrivalTime" class="boby"></p>
-
-    <script>
-        
-        function addLeadingZero(number) {
-            return number < 10 ? "0" + number : number;
-        }
-
-        function calculateArrivalTime() {
-            var distance = parseFloat(document.getElementById('distance').value);
-            var speed = parseFloat(document.getElementById('speed').value);
-            var mapSpeed = parseFloat(document.getElementById('mapSpeed').value);
-            var faction = parseFloat(document.getElementById('faction').value);
-            var march = document.getElementById('march').checked ? 1.5 : 1;
-
-            var timeInSeconds = distance * 3600 / (speed * faction * march * mapSpeed);
-
-            var hours = Math.floor(timeInSeconds / 3600);
-            var minutes = Math.floor((timeInSeconds % 3600) / 60);
-            var seconds = Math.floor(timeInSeconds % 60);
-
-            var formattedTime = addLeadingZero(hours) + ":" + addLeadingZero(minutes) + ":" + addLeadingZero(seconds);
-
-            document.getElementById('arrivalTime').innerText = "Příjezd za " + formattedTime;
-        }
-    </script>
-
-</body>
-</html>
+</html>    
