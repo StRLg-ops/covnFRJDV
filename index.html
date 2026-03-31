@@ -4,37 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona z menu</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Подключение CSS -->
     <meta name="robots" content="noindex, nofollow">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-        }
+</head>
+<body>
+    
+    
+    <div class="container">
+        <h1>Kalkulator czasu</h1>
+    
+    <label for="distance" class="boby">Vzdálenost (km):</label>
+    <input type="text" id="distance" min="0" step="any" class="dodi">
+    <label for="speed" class="boby">Rychlost jednotky (km):</label>
+    <input type="text" id="speed" min="0" step="any" class="dodi">
+
+    <label for="mapSpeed" class="boby">Prędkość karty:</label>
+    <input type="text" id="mapSpeed" min="1" step="any" value="1" class="dodi">
+
+    <label for="faction" class="boby">Wybierz województwo</label>
+    <select id="faction">
+        <option value="1">Własną Prowincja</option>
+        <option value="0.7">Przyjazna Prowincja</option>
+        <option value="0.35">Prowincja wroga</option>
+    </select>
+
+    <label for="march" class="boby">Marsz włączony?</label>
+    <input type="checkbox" id="march">
+    <br>
+
+    <input type="button" class="buttons" value="Pokaż wynik" onclick="calculateArrivalTime()">
+
+    <p id="arrivalTime" class="boby"></p>
+
+    <script>
         
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.1);
-            width: 320px;
+        function addLeadingZero(number) {
+            return number < 10 ? "0" + number : number;
         }
-        
-        h1 {
-            text-align: center;
-            margin-bottom: 25px;
-            font-size: 24px;
+
+        function calculateArrivalTime() {
+            var distance = parseFloat(document.getElementById('distance').value);
+            var speed = parseFloat(document.getElementById('speed').value);
+            var mapSpeed = parseFloat(document.getElementById('mapSpeed').value);
+            var faction = parseFloat(document.getElementById('faction').value);
+            var march = document.getElementById('march').checked ? 1.5 : 1;
+
+            var timeInSeconds = distance * 3600 / (speed * faction * march * mapSpeed);
+
+            var hours = Math.floor(timeInSeconds / 3600);
+            var minutes = Math.floor((timeInSeconds % 3600) / 60);
+            var seconds = Math.floor(timeInSeconds % 60);
+
+            var formattedTime = addLeadingZero(hours) + ":" + addLeadingZero(minutes) + ":" + addLeadingZero(seconds);
+
+            document.getElementById('arrivalTime').innerText = "Příjezd za " + formattedTime;
         }
-        
-        label {
-            display: block;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-weight: bold;
+    </script>
+
+</body>
+</html>
+font-weight: bold;
             text-align: center;
         }
         
