@@ -4,37 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strona z menu</title>
-    
     <meta name="robots" content="noindex, nofollow">
 </head>
 <body>
-    
-    
-    <div class="container">
-        <h1>Kalkulator czasu</h1>
-    
-    <label for="distance" class="boby">Vzdálenost (km):</label>
-    <input type="text" id="distance" min="0" step="any" class="dodi">
-    <label for="speed" class="boby">Rychlost jednotky (km):</label>
-    <input type="text" id="speed" min="0" step="any" class="dodi">
 
-    <label for="mapSpeed" class="boby">Prędkość karty:</label>
-    <input type="text" id="mapSpeed" min="1" step="any" value="1" class="dodi">
+    <table align="center" border="0" cellpadding="5">
+        <tr>
+            <td align="center" colspan="2"><h1>Kalkulator czasu</h1></td>
+        </tr>
+        <tr>
+            <td align="right"><label for="distance" class="boby">Vzdálenost (km):</label></td>
+            <td><input type="text" id="distance" min="0" step="any" class="dodi"></td>
+        </tr>
+        <tr>
+            <td align="right"><label for="speed" class="boby">Rychlost jednotky (km):</label></td>
+            <td><input type="text" id="speed" min="0" step="any" class="dodi"></td>
+        </tr>
+        <tr>
+            <td align="right"><label for="mapSpeed" class="boby">Prędkość karty:</label></td>
+            <td><input type="text" id="mapSpeed" min="1" step="any" value="1" class="dodi"></td>
+        </tr>
+        <tr>
+            <td align="right"><label for="faction" class="boby">Wybierz województwo</label></td>
+            <td><select id="faction">
+                <option value="1">Własną Prowincja</option>
+                <option value="0.7">Przyjazna Prowincja</option>
+                <option value="0.35">Prowincja wroga</option>
+            </select></td>
+        </tr>
+        <tr>
+            <td align="right"><label for="march" class="boby">Marsz włączony?</label></td>
+            <td><input type="checkbox" id="march"></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2"><input type="button" class="buttons" value="Pokaż wynik" onclick="calculateArrivalTime()"></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2"><p id="arrivalTime" class="boby"></p></td>
+        </tr>
+    </table>
 
-    <label for="faction" class="boby">Wybierz województwo</label>
-    <select id="faction">
-        <option value="1">Własną Prowincja</option>
-        <option value="0.7">Przyjazna Prowincja</option>
-        <option value="0.35">Prowincja wroga</option>
-    </select>
+    <script>
+        function addLeadingZero(number) {
+            return number < 10 ? "0" + number : number;
+        }
 
-    <label for="march" class="boby">Marsz włączony?</label>
-    <input type="checkbox" id="march">
-    <br>
+        function calculateArrivalTime() {
+            var distance = parseFloat(document.getElementById('distance').value);
+            var speed = parseFloat(document.getElementById('speed').value);
+            var mapSpeed = parseFloat(document.getElementById('mapSpeed').value);
+            var faction = parseFloat(document.getElementById('faction').value);
+            var march = document.getElementById('march').checked ? 1.5 : 1;
 
-    <input type="button" class="buttons" value="Pokaż wynik" onclick="calculateArrivalTime()">
+            var timeInSeconds = distance * 3600 / (speed * faction * march * mapSpeed);
 
-    <p id="arrivalTime" class="boby"></p>
+            var hours = Math.floor(timeInSeconds / 3600);
+            var minutes = Math.floor((timeInSeconds % 3600) / 60);
+            var seconds = Math.floor(timeInSeconds % 60);
+
+            var formattedTime = addLeadingZero(hours) + ":" + addLeadingZero(minutes) + ":" + addLeadingZero(seconds);
+
+            document.getElementById('arrivalTime').innerText = "Příjezd za " + formattedTime;
+        }
+    </script>
+
+</body>
+</html>    <p id="arrivalTime" class="boby"></p>
 
     <script>
         
